@@ -1,0 +1,40 @@
+.navbar-brand img {
+    height: 50px;
+}
+.navbar-nav li a{
+    color: aliceblue;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size: large;
+    margin-left: 40px;
+    
+
+}
+* {
+    margin-bottom: 10;
+}
+
+
+.navbar-custom {
+    background-color: rgb(0, 0, 0);
+}
+
+.navbar-nav li a:hover{
+    color: rgb(172, 192, 228);
+    text-shadow: 2px 2px 6px white;
+    font-weight: bold;
+}
+
+.navbar {
+    position: fixed;
+    width:100%;
+    z-index: 9999999;
+
+    padding: 0px !important;
+
+}
+
+
+
+#navbarNav {
+justify-content: end;
+}
