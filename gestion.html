@@ -50,27 +50,21 @@
 
       <div id="login-form-wrap2 form-contact">
         <h2>connect</h2>
-        <form  action="configuration.php" method="post" id="login-form">
+        <form  action="authentication.php" method="post" id="login-form">
           <p>
-          <input type="text" id="username" name="nomclient" placeholder="votre nom" required><i class="validation"></i>
+          <input type="text" id="username" name="username" placeholder="User Name" required><i class="validation"></i>
           </p>
           <p>
-          <input type="text" id="te" name="prenomclient" placeholder="votre prenom" required><i class="validation"></i>
-          </p>
+          
           <p>
-          <input type="email" id="email" name="mailclient" placeholder="votre email" required><i class="validation"></i>
-          </p>
-          <p>
-          <input type="text" id="pass" name="paswordclient" placeholder="mot de pass" required><i class="validation"></i>
+          <input type="password" id="pass" name="password" placeholder="mot de pass" required><i class="validation"></i>
           </p>
       
           <p>
-          <input type="submit" name="register" id="login" value="sign up">
+          <input type="submit" name="register" id="login" value="sign in">
           </p>
         </form>
-        <div id="create-account-wrap">
-          <p>login as a client<a href="">login</a><p>
-        </div><!--create-account-wrap-->
+  
       </div>
 
  

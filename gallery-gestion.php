@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css ?v=<?php echo time(); ?>
+">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>   
@@ -43,118 +44,207 @@
 
 
 
+      
+
+
+
+<?php 
+
+include 'db_conn.php';
+
+ $sqlQuery = "SELECT nom FROM categorie";
+  $categoriesnom = $mysqlClient->prepare($sqlQuery);
+  $categoriesnom->execute();
+
+
+?>
+<form method="POST" action="gallery-gestion.php" class="selection-all" >
+<select class="form-select mb-3" aria-label="Default select example" name="categorieproduit">
+      <option selected value="all">all</option>
+      <?php
+      foreach($categoriesnom as $categorinom){
+      ?>
+      <option  value="<?php echo $categorinom["nom"]; ?>"><?php echo $categorinom["nom"]; ?></option>
+      <?php
+      }
+      ?>
+</select>
+<button type="submit" class="btn btn-primary">Filtrer</button>
+</form>
+
+<?php
+
+if(isset($_POST['categorieproduit'])){
+    $categorieproduit=$_POST['categorieproduit'];
+
+    if($categorieproduit=="all"){
+
+        $sqlQuery = "SELECT * FROM produit";
+
+   $products = $mysqlClient->prepare($sqlQuery);
+   $products->execute();?>
+   <div class="carte">
+  <?php
+   foreach ($products as $product) {
+   ?>
+
+   <div class="card card2 col-md-5 col-lg-3 col-sm-10" id="<?=$product['id']?>" style="width: 18rem;">
+    <img src="uploads/<?=$product['img']?>" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">Card title</h5>
+      <a href="#" class="btn btn-light">Go somewhere</a>
+      <h4><?=$product['prix']?>,00 DH</h4>
+      <h4>Qté: <?=$product['quantite']?></h4>
+
+      <a href="supp.php?idproduit=<?=$product['id']?>">supprimer</a>
+      <a href="modify.php?idproduit=<?=$product['id']?>">
+    modifier
+    </a>
+    </div>
+   </div>
+    <?php
+   }?>
+  </div>
+<?php 
+    }else{
+
+
+        $sqlQuery = "SELECT id FROM categorie WHERE nom = :categorie";
+
+   $getcategorieid = $mysqlClient->prepare($sqlQuery);
+   $getcategorieid->execute([
+  'categorie' => $categorieproduit,
+   ]);
+
+   foreach ($getcategorieid as $categoriid) {
+
+   $sqlQuery = "SELECT * FROM produit WHERE id_categorie = :id";
+
+   $productsid = $mysqlClient->prepare($sqlQuery);
+   $productsid->execute([
+  'id' => $categoriid['id'],
+   ]);?>
+   <div class="carte">
+  <?php
+   foreach ($productsid as $product) {
+   ?>
+   <div class="card card2 col-md-5 col-lg-3 col-sm-10" id="<?=$product['id']?>" style="width: 18rem;">
+    <img src="uploads/<?=$product['img']?>" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">Card title</h5>
+      <h4><?=$product['prix']?>,00 DH</h4>
+      <h4>Qté: <?=$product['quantite']?></h4>
+      <a href="#" class="btn btn-light">Go somewhere</a>
+      <a href="supp.php?idproduit=<?=$product['id']?>">supprimer</a>
+      <a href="modify.php?idproduit=<?=$product['id']?>">modifier</a>
+      
+    </div>
+   </div>
+   <?php 
+   }?>
+   </div>
+   <?php
+    }
+}
+}else{
+
+    $sqlQuery = "SELECT * FROM produit";
+
+   $products = $mysqlClient->prepare($sqlQuery);
+   $products->execute();
+   ?>
+   <div class="carte">
+   <?php
+   foreach ($products as $product) {
+   ?>
+
+    <div class="card card2 col-md-5 col-lg-3 col-sm-10" id="<?=$product['id']?>" style="width: 18rem;">
+    <img src="uploads/<?=$product['img']?>" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title"><?=$product['libelle']?></h5>
+      <h4><?=$product['prix']?>,00 DH</h4>
+      <h4>Qté: <?=$product['quantite']?></h4>
+      <a href="#" class="btn btn-light">Go somewhere</a>
+      <a href="supp.php?idproduit= <?=$product['id']?>">supprimer</a>
+      <a href="modify.php?idproduit=<?=$product['id']?>">modifier</a>
+    </div>
+   </div>
+   <?php 
+   }?>
+   </div>
+   <?php
+}
+?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
  
-      <div id="carouselSlidesOnly" class="carousel slide" data-bs-ride="carousel">
-  <div class="carousel-inner">
-    <div class="colorlay"></div>
-    <div class="carousel-item active">
-      <img src="img/slide1.jpg" class="d-block w-100" alt="...">
-      <div class="carousel-caption d-none d-md-block">
-        <h5>First slide label</h5>
-        <p>Some representative placeholder content for the first slide.</p>
-      </div>
-    </div>
-    <div class="carousel-item">
-      <img src="img/slide2.jpg" class="d-block w-100" alt="...">
-      <div class="carousel-caption d-none d-md-block">
-        <h5>First slide label</h5>
-        <p>Some representative placeholder content for the first slide.</p>
-      </div>
-    </div>
-    <div class="carousel-item">
-      <img src="img/slide3.webp" class="d-block w-100" alt="...">
-      <div class="carousel-caption d-none d-md-block">
-        <h5>First slide label</h5>
-        <p>Some representative placeholder content for the first slide.</p>
-      </div>
-    </div>
-  </div>
-</div>
-
-            <!-- <div class="section bgvd">
-            <div class="video-container">
-              <div class="color-ovelay"></div>
-            <video  autoplay loop muted>
-              <source src="video/bg-video.mp4" type="video/mp4">           
-          </div> -->
-          <div class="categ-home ">
-            <p> Show Categories</p>
-
-            <img src="img/cat-keyboard.gif" alt="">
-            <img src="img/cat-microphone.gif" alt="">
-            <img src="img/cat-mouse.gif" alt="">
-            <img src="img/cat-pc.gif" alt="">
-
-          </div>
-
-
-
-
-
-
-
-          
-
-
-          
-
-
-
-
-
-
-
-
-
-
-
-
-          <!-- <div class="best-seller-home ">
-            <p> Just arrived</p>
-
-            <img src="img/pc.webp" alt="">
-            <img src="img/mouse.webp" alt="">
-            <img src="img/keyboard.png" alt="">
-            <img src="img/micro.png" alt="">
-
-          </div> -->
-          <!-- </div> -->
-
-
-
-         <div class="catg">
-         <div class="card  card1" style="width: 18rem;">
-  <img src="img/micro.png" class="card-img-top" alt="...">
-  <div class="card-body">
-    <h5 class="card-title text-white">Card title</h5>
-    <p class="card-text text-white">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
-  </div>
-</div>
-
-
-
-          <div class="card card1" style="width: 18rem;">
-  <img src="img/pc.webp" class="card-img-top" alt="...">
-  <div class="card-body">
-    <h5 class="card-title text-white">Card title</h5>
-    <p class="card-text text-white">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
-  </div>
-</div>
-
-
-
-<div class="card card1" style="width: 18rem;">
-  <img src="img/keyboard.png" class="card-img-top" alt="...">
-  <div class="card-body">
-    <h5 class="card-title text-white">Card title</h5>
-    <p class="card-text text-white">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
-  </div>
-</div>
-       
-         </div>   
+  
 
 
      

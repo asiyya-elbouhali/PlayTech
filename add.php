@@ -1,9 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+
+<html lang="fr" xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8" />
+    <title>PlayTech</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/14273d579a.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -12,11 +15,10 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;1,100&family=Rubik+Distressed&display=swap" rel="stylesheet">
-    <title>Document</title>
+
+
 </head>
 <body>
-
-
 
 <nav class="navbar navbar-expand-lg black-nav ">
         <div class="container-fluid">
@@ -31,7 +33,7 @@
                 <a class="nav-link active" aria-current="page" href="index.html">Home</a>
               </li> 
               <li class="nav-item">
-                <a class="nav-link" href="gallery.php">Gallery</a>
+                <a class="nav-link" href="gallery.html">Gallery</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="gestion.html">Se connecter</a>
@@ -43,126 +45,66 @@
 
 
 
- 
-      <div id="carouselSlidesOnly" class="carousel slide" data-bs-ride="carousel">
-  <div class="carousel-inner">
-    <div class="colorlay"></div>
-    <div class="carousel-item active">
-      <img src="img/slide1.jpg" class="d-block w-100" alt="...">
-      <div class="carousel-caption d-none d-md-block">
-        <h5>First slide label</h5>
-        <p>Some representative placeholder content for the first slide.</p>
-      </div>
+
+
+
+
+
+
+<?php if(isset($_GET['error'])): ?>
+    <p><?php echo $_GET['error'] ?></p>
+<?php endif ?>
+
+<div class="container">
+
+<div class="row">
+
+<form method="POST" action="addproduct.php" enctype="multipart/form-data">
+    <div class="mb-3 chmp">
+        <label for="nomproduit" class="form-label label-f">Nom</label>
+        <input type="text" class="form-control" id="nomproduit" name="nomproduit" required>
     </div>
-    <div class="carousel-item">
-      <img src="img/slide2.jpg" class="d-block w-100" alt="...">
-      <div class="carousel-caption d-none d-md-block">
-        <h5>First slide label</h5>
-        <p>Some representative placeholder content for the first slide.</p>
-      </div>
+    <div class="mb-3 chmp">
+      <label for="picproduit" class="form-label label-f">Picture</label>
+      <input class="form-control" type="file" id="picproduit" name="picproduit">
     </div>
-    <div class="carousel-item">
-      <img src="img/slide3.webp" class="d-block w-100" alt="...">
-      <div class="carousel-caption d-none d-md-block">
-        <h5>First slide label</h5>
-        <p>Some representative placeholder content for the first slide.</p>
-      </div>
+    <div class="mb-3 chmp">
+        <label for="quantiteproduit" class="form-label label-f">Quantité</label>
+        <input type="nombre" class="form-control" id="quantiteproduit" name="quantiteproduit" required>
     </div>
-  </div>
+    <div class="mb-3 chmp">
+        <label for="prixproduit" class="form-label label-f">Prix</label>
+        <input type="nombre" class="form-control" id="prixproduit" name="prixproduit" required>
+    </div>
+
+
+
+
+
+    <div class="mb-3">
+        <label for="categorie" class="form-label label-f">Categorie</label>
+        <select class="form-select mb-3" aria-label="Default select example" name="categorieproduit" id="categorie" required>
+               <option value=""></option>
+               <option value="clavier">Keyboard</option>
+               <option value="pc gaming">Gaming PC</option>
+               <option value="mouse"> Mouse</option>
+        </select>
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Ajouter</button>
+</form>
+
+
 </div>
 
-            <!-- <div class="section bgvd">
-            <div class="video-container">
-              <div class="color-ovelay"></div>
-            <video  autoplay loop muted>
-              <source src="video/bg-video.mp4" type="video/mp4">           
-          </div> -->
-          <div class="categ-home ">
-            <p> Show Categories</p>
-
-            <img src="img/cat-keyboard.gif" alt="">
-            <img src="img/cat-microphone.gif" alt="">
-            <img src="img/cat-mouse.gif" alt="">
-            <img src="img/cat-pc.gif" alt="">
-
-          </div>
-
-
-
-
-
-
-
-          
-
-
-          
-
-
-
-
-
-
-
-
-
-
-
-
-          <!-- <div class="best-seller-home ">
-            <p> Just arrived</p>
-
-            <img src="img/pc.webp" alt="">
-            <img src="img/mouse.webp" alt="">
-            <img src="img/keyboard.png" alt="">
-            <img src="img/micro.png" alt="">
-
-          </div> -->
-          <!-- </div> -->
-
-
-
-         <div class="catg">
-         <div class="card  card1" style="width: 18rem;">
-  <img src="img/micro.png" class="card-img-top" alt="...">
-  <div class="card-body">
-    <h5 class="card-title text-white">Card title</h5>
-    <p class="card-text text-white">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
-  </div>
 </div>
 
 
 
-          <div class="card card1" style="width: 18rem;">
-  <img src="img/pc.webp" class="card-img-top" alt="...">
-  <div class="card-body">
-    <h5 class="card-title text-white">Card title</h5>
-    <p class="card-text text-white">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
-  </div>
-</div>
 
 
 
-<div class="card card1" style="width: 18rem;">
-  <img src="img/keyboard.png" class="card-img-top" alt="...">
-  <div class="card-body">
-    <h5 class="card-title text-white">Card title</h5>
-    <p class="card-text text-white">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
-  </div>
-</div>
-       
-         </div>   
 
-
-     
-          
-
-
-
-<!-- ************************************************************************************************* -->
 <div class="footer">
         <div class="container">
             <div class="footer-cats row">
@@ -232,5 +174,4 @@
         </div>
     </div>
 </body>
-
 </html>
